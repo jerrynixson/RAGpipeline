@@ -1,37 +1,3 @@
-# from llama_index.core import Document
-# from llama_index.core import KnowledgeGraphIndex, StorageContext
-# from content_fetcher import ContentFetcher
-
-# class GraphUpdater:
-#     def __init__(self, knowledge_graph: KnowledgeGraphIndex, storage_dir: str):
-#         self.index = knowledge_graph
-#         self.storage_dir = storage_dir
-
-#     def update_graph_from_url(self, url: str) -> str:
-#         content_fetcher = ContentFetcher(url)
-#         content = content_fetcher.fetch_content()
-        
-#         if content:
-#             text_list = [content]
-#             documents = [Document(text=t) for t in text_list]
-            
-#             try:
-#                 for doc in documents:
-#                     self.index.update(document=doc)
-                
-#                 # Save the updated graph back to the storage
-#                 storage_context = StorageContext.from_defaults(
-#                     persist_dir=self.storage_dir
-#                 )
-#                 self.index.persist(storage_context)
-
-                
-#                 return "Graph updated successfully!"
-#             except Exception as e:
-#                 return f"Error updating graph: {str(e)}"
-#         else:
-#             return "Failed to fetch content from the URL."
-
 from llama_index.core import Document, KnowledgeGraphIndex, StorageContext
 from content_fetcher import ContentFetcher
 from llama_index.core.graph_stores import SimpleGraphStore
