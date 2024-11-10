@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Knowledge Graph Chatbot</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        async function createGraph() {
+            const url = document.getElementById('create_url').value;
+            const response = await fetch('/create_graph', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url })
+            });
+            const data = await response.json();
+            displayResponse(data.message);
+        }
+
+        async function updateGraph() {
+            const url = document.getElementById('update_url').value;
+            const response = await fetch('/update_graph', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ url: url })
+            });
+            const data = await response.json();
+            displayResponse(data.message);
+        }
+
+        async function queryGraph() {
+            const query = document.getElementById('query').value;
+            const response = await fetch('/query_graph', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: query })
+            });
+            const data = await response.json();
+            displayResponse('Query Result: ' + data.result);
+        }
+
+        function displayResponse(message) {
+            const responseBox = document.getElementById('response');
+            responseBox.innerText = '';  // Clear previous message
+            responseBox.classList.add('show');
+            let index = 0;
+
+            // Typewriter effect to preserve spaces
+            function typeWriter() {
+                if (index < message.length) {
+                    responseBox.innerText += message[index];
+                    index++;
+                    setTimeout(typeWriter, 50);  // Adjust speed by changing delay
+                } else {
+                    setTimeout(() => responseBox.classList.remove('show'), 5000);  // Keep message visible for 5 seconds
+                }
+            }
+
+            typeWriter();
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Knowledge Graph System</h1>
+
+        <div class="card">
+            <h2>Create a New Knowledge Graph</h2>
+            <input type="text" id="create_url" placeholder="Enter URL">
+            <button onclick="createGraph()">Create Graph</button>
+        </div>
+
+        <div class="card">
+            <h2>Update Existing Knowledge Graph</h2>
+            <input type="text" id="update_url" placeholder="Enter URL">
+            <button onclick="updateGraph()">Update Graph</button>
+        </div>
+
+        <div class="card">
+            <h2>Query Knowledge Graph</h2>
+            <input type="text" id="query" placeholder="Enter Query">
+            <button onclick="queryGraph()">Query Graph</button>
+        </div>
+
+        <!-- Response box directly below the query section -->
+        <div id="response" class="response-box"></div>
+    </div>
+</body>
+</html>
