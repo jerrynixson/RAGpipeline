@@ -1,0 +1,10 @@
+requests
+beautifulsoup4
+llama-index
+huggingface-hub
+openai
+pyvis
+networkx
+numpy
+scikit-learn  # for PCA
+torch  # optional, for Hugging Face Embeddings

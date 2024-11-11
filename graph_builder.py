@@ -4,7 +4,6 @@ from llama_index.core.graph_stores import SimpleGraphStore
 from llama_index.core import KnowledgeGraphIndex
 from llama_index.embeddings.huggingface import HuggingFaceEmbedding
 from llama_index.llms.openai import OpenAI
-import json 
 from llama_index.core.graph_stores import SimpleGraphStore
 from llama_index.core import Settings
 from pyvis.network import Network
@@ -33,14 +32,14 @@ Text: {text}
 Triplets:
 """
 
-MAX_TRIPLETS_PER_CHUNK = 1
+MAX_TRIPLETS_PER_CHUNK = 50
 
 class GraphBuilder:
     def __init__(self, storage_dir: str):
         self.storage_dir = storage_dir
         self.index = None
-        os.makedirs(self.storage_dir, exist_ok=True)  # Ensure storage directory exists
-        self.documents = None  # define in __init__
+        os.makedirs(self.storage_dir, exist_ok=True)  
+        self.documents = None  
         self.edge_types = ["relationship"]
         self.rel_prop_names = ["relationship"]
         self.tags = ["entity"]
@@ -51,7 +50,6 @@ class GraphBuilder:
 
         # Set up the embedding model and language model
         embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
-        os.environ["OPENAI_API_KEY"] = ""
         llm = OpenAI(temperature=0.1, model="gpt-3.5-turbo-16k")
         Settings.llm = llm
         Settings.chunk_size = 1024

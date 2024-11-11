@@ -4,13 +4,12 @@ from graph_builder import GraphBuilder
 from graph_updater import GraphUpdater
 from information_retriever import InformationRetriever
 from content_fetcher import ContentFetcher
-
+from setEnvironment_variable import SetEnvironment_variable
 app = Flask(__name__)
 
 # Set environment variable and storage directory
-os.environ["OPENAI_API_KEY"] = ""
-STORAGE_DIR = "/Users/sampa/Desktop/Project/RAG/projectFile/knowledge_graph_storage"
 
+STORAGE_DIR = SetEnvironment_variable()
 # Initialize the knowledge graph
 graph_builder = GraphBuilder(STORAGE_DIR)
 graph = graph_builder.load_existing_graph()

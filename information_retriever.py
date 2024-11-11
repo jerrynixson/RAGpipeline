@@ -13,7 +13,6 @@ class InformationRetriever:
  
     def __init__(self, knowledge_graph: KnowledgeGraphIndex):
         embed_model = HuggingFaceEmbedding(model_name="BAAI/bge-base-en-v1.5")
-        os.environ["OPENAI_API_KEY"] = ""
         llm = OpenAI(temperature=0.1, model="gpt-3.5-turbo-16k")
         Settings.llm = llm
         Settings.chunk_size = 1024
